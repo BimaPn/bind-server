@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\FriendRequest;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -13,6 +15,14 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Broadcast::routes(["prefix" => "api",'middleware' => ['auth:sanctum']]);
+
+Route::post('/testing', function() {
+    FriendRequest::dispatch("hahah bitch");
+    return response()->json([
+        "message" => "done babyyyy....."
+    ]);
+});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/group.php';
