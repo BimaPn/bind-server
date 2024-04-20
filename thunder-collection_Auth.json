@@ -1,0 +1,37 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Auth",
+    "dateExported": "2023-07-24T07:34:22.922Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "007deb58-8016-4f79-af35-fe8c770fc67f",
+            "colId": "3fff978b-b2d0-4dab-9e2c-8ec037607030",
+            "containerId": "",
+            "name": "Login",
+            "url": "http://bindapi.test/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-07-24T03:19:45.363Z",
+            "modified": "2023-07-24T03:21:26.037Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "email",
+                        "value": "fabianazhar216@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "value": "12345678"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ]
+}

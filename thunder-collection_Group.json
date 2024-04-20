@@ -1,0 +1,169 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Group",
+    "dateExported": "2023-07-24T07:34:11.851Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "7a24e973-af9e-4635-818a-d2844b52abc7",
+            "colId": "b240001b-89a4-49b6-8cc3-0ba23a1bd3a3",
+            "containerId": "",
+            "name": "Groups",
+            "url": "http://bindapi.test/api/groups",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-07-24T03:17:15.629Z",
+            "modified": "2023-07-24T03:17:24.669Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a51a4fc9-f195-4cef-aeb2-a104d30a724f",
+            "colId": "b240001b-89a4-49b6-8cc3-0ba23a1bd3a3",
+            "containerId": "",
+            "name": "Groups search",
+            "url": "http://bindapi.test/api/group/02a2c987-2fff-38c6-8dc2-997f71a02f95",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-07-24T03:17:45.401Z",
+            "modified": "2023-07-24T06:49:03.234Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYmluZGFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjkwMTgwMzU2LCJleHAiOjE2OTAxODM5NTYsIm5iZiI6MTY5MDE4MDM1NiwianRpIjoiMklXZHpMTThnekQzeU8yeCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ia1r27HY1YBFy6eAQi9-Qvy22T-v9PPwqZvPA61zh8g"
+            },
+            "tests": []
+        },
+        {
+            "_id": "91ce657e-747b-4b44-818b-10c0887f6819",
+            "colId": "b240001b-89a4-49b6-8cc3-0ba23a1bd3a3",
+            "containerId": "",
+            "name": "Groups update",
+            "url": "http://bindapi.test/api/group/d8d4f485-9a8b-461f-8f59-05b8ea69132d",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-07-24T03:23:53.846Z",
+            "modified": "2023-07-24T03:37:21.126Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "ini ajsdabsdj"
+                    },
+                    {
+                        "name": "desc",
+                        "value": "inio asldnlaksndlkansf"
+                    },
+                    {
+                        "name": "oldPicture",
+                        "value": "group//Zfqyft1y7hzKqbeCJtU2EgBuVaJFmgypilNSCb2k.jpg"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "group_picture",
+                        "value": "c:\\Users\\LAB PEMROGRAMAN\\Pictures\\Screenshots\\Screenshot (4).png"
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYmluZGFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjkwMTY4ODg1LCJleHAiOjE2OTAxNzI0ODUsIm5iZiI6MTY5MDE2ODg4NSwianRpIjoiVTY1ZzdXWk1BdXB4ZWVSdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.6tDxdJJxwOkObEe-p9ZuWJogVcI3K86ZV_-lsmJjFIU"
+            },
+            "tests": []
+        },
+        {
+            "_id": "039b991d-4771-4195-94ce-cc4fb972fb58",
+            "colId": "b240001b-89a4-49b6-8cc3-0ba23a1bd3a3",
+            "containerId": "",
+            "name": "Groups join",
+            "url": "http://bindapi.test/api/group/02a2c987-2fff-38c6-8dc2-997f71a02f95/join",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-07-24T03:50:26.531Z",
+            "modified": "2023-07-24T05:19:08.500Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "id",
+                        "value": "57718688-6e73-3e6e-9d1f-5b6308e2eb90",
+                        "isDisabled": true
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYmluZGFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjkwMTczNzU0LCJleHAiOjE2OTAxNzczNTQsIm5iZiI6MTY5MDE3Mzc1NCwianRpIjoiSGJIbHBRQ1RrelBMQUhkYiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.NROPdqIzS85dQNMIOOGsszIgpWzKjQetnXzqmFC8x-c"
+            },
+            "tests": []
+        },
+        {
+            "_id": "518345ee-b375-41c4-82fb-2a38399e3fcf",
+            "colId": "b240001b-89a4-49b6-8cc3-0ba23a1bd3a3",
+            "containerId": "",
+            "name": "Groups store ",
+            "url": "http://bindapi.test/api/group",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-07-24T03:31:56.355Z",
+            "modified": "2023-07-24T03:55:51.111Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "lknknsdlcnlsdkdd"
+                    },
+                    {
+                        "name": "desc",
+                        "value": "csdcsdvsdvsdv"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "group_picture",
+                        "value": "c:\\Users\\LAB PEMROGRAMAN\\Pictures\\Screenshots\\Screenshot (3).png",
+                        "isDisabled": true
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYmluZGFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjkwMTY4ODg1LCJleHAiOjE2OTAxNzI0ODUsIm5iZiI6MTY5MDE2ODg4NSwianRpIjoiVTY1ZzdXWk1BdXB4ZWVSdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.6tDxdJJxwOkObEe-p9ZuWJogVcI3K86ZV_-lsmJjFIU"
+            },
+            "tests": []
+        },
+        {
+            "_id": "231fc88b-811d-489f-aee5-7a0c501e24b4",
+            "colId": "b240001b-89a4-49b6-8cc3-0ba23a1bd3a3",
+            "containerId": "",
+            "name": "Groups delete",
+            "url": "http://bindapi.test/api/group/b2366da1-1bf2-4cea-a3c0-c3f5ccc9ed53",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-07-24T03:41:00.511Z",
+            "modified": "2023-07-24T03:42:40.073Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYmluZGFwaS50ZXN0L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjkwMTY4ODg1LCJleHAiOjE2OTAxNzI0ODUsIm5iZiI6MTY5MDE2ODg4NSwianRpIjoiVTY1ZzdXWk1BdXB4ZWVSdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.6tDxdJJxwOkObEe-p9ZuWJogVcI3K86ZV_-lsmJjFIU"
+            },
+            "tests": []
+        }
+    ]
+}
