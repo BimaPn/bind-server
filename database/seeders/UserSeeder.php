@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
         User::create([
             'id' => 'MFA',
             'role_id' => 2,
-            'name' => 'Muhammad Fabian Azhar',
+            'name' => 'Muhammad Fabian anjay',
             'username' => 'fabian',
             'phone' => '0895-4042-8834',
             'email' => 'fabianazhar@gmail.com',

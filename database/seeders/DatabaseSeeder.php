@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PostLikeSeeder::class);
         $this->call(PostCommentSeeder::class);
         $this->call(PostSaveSeeder::class);
+        $this->call(MessageSeeder::class);
         // PostLike::factory(20)->create();
         // PostSave::factory(10)->create();
         // PostComment::factory(20)->create();
