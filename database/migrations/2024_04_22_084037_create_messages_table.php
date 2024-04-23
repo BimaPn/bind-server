@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->uuid("id");
+            $table->uuid("id")->primary();
             $table->foreignUuid("sender_id");
             $table->foreignUuid("receiver_id");
             $table->text("message");

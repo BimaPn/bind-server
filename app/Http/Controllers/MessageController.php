@@ -15,17 +15,9 @@ class MessageController extends Controller
         $senderId = auth()->user()->id;
         $receiverId = $user->id;
 
-        $messages = Message::where(function ($query) use ($senderId, $receiverId) {
-            $query->where('sender_id', $senderId)
-                  ->where('receiver_id', $receiverId);
-        })->orWhere(function ($query) use ($senderId, $receiverId) {
-            $query->where('sender_id', $receiverId)
-                  ->where('receiver_id', $senderId);
-        })->orderBy('created_at', 'desc')->get();
-
-        $messages->each(function ($message) use ($senderId) {
-            $message->IsCurrentAuth = $message->sender_id == $senderId;
-        });
+        $messages = Message::whereIn("sender_id", [$senderId, $receiverId])
+                           ->whereIn("receiver_id", [$senderId, $receiverId])
+                           ->get();
 
         return response()->json([
             "message" => "Success",
@@ -35,24 +27,26 @@ class MessageController extends Controller
 
     public function getChatList ()
     {
-        $authId = auth()->user()->id;
+        $senderId = auth()->user()->id;
 
-        $subquery = Message::select('sender_id', 'receiver_id', DB::raw('MAX(created_at) as last_message_date'))
-        ->where('sender_id', $authId)
-        ->orWhere('receiver_id', $authId)
-        ->groupBy('sender_id', 'receiver_id');
+        $chats = DB::table("messages")
+          ->join(DB::raw("(SELECT CASE WHEN sender_id = '$senderId' THEN receiver_id ELSE sender_id END as user,
+                MAX(created_at) as max_created
+                FROM messages WHERE sender_id = '$senderId' OR receiver_id = '$senderId'
+                GROUP BY user) as last_messages"), function ($join) {
+                $join->on('messages.created_at','=','last_messages.max_created');
+                })
+                ->orderBy("messages.created_at", "desc")
+            ->select("user","message","created_at")
+            ->get();
 
-        $chats = Message::select('sender_id', 'receiver_id', 'message', 'created_at')
-        ->whereIn('created_at', function ($query) use ($subquery) {
-            $query->select('last_message_date')
-                ->fromSub($subquery, 'subquery');
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $chats->each(function($chat) use($senderId) {
+            $user = User::select("username", "name", "profile_picture")->find($chat->user);
+            $chat->user = $user;
+        });
 
         return response()->json([
-            "message" => "chat list",
-            "chats" => $chats
+            "message" => $chats,
         ]);
     }
 

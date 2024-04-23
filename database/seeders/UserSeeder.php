@@ -57,5 +57,19 @@ class UserSeeder extends Seeder
             'bio' => '...182',
             'isVerified' => true
         ])->follow($fabian);
+
+        User::create([
+            'id' => 'DAMN',
+            'role_id' => 3,
+            'name' => 'Mr Habibi',
+            'username' => 'habibi',
+            'phone' => '0895-4042-8935',
+            'email' => 'habibi@gmail.com',
+            'password' => Hash::make('12345678'),
+            'address' => 'New York City, USA.',
+            'gender' => 'Male',
+            'bio' => 'Love You',
+            'isVerified' => true
+        ])->follow($fabian);
     }
 }
