@@ -51,7 +51,6 @@ class MessageSeeder extends Seeder
             "sender_id" => "Z",
             "receiver_id" => "DAMN",
             "message" => "Hell ya bro",
-            "created_at" => Carbon::create("19-04-2024")
         ]);
         Message::create([
             "id" => str::uuid(),
