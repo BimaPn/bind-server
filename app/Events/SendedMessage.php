@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Controllers\MessageController;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -25,6 +26,7 @@ class SendedMessage implements ShouldBroadcast
     public function __construct(Message $message, $userId)
     {
         $this->message = $message;
+        $this->message->isRead = MessageController::checkIsMessageReaded($userId, auth()->user()->id);
         $this->userId = $userId;
     }
 

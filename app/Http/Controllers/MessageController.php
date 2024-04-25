@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\SendedMessage;
+use App\Models\LastSeenMessage;
 use App\Models\Message;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +28,8 @@ class MessageController extends Controller
             $message->isCurrentAuth = $message->sender_id == $senderId;
             unset($message->sender_id);
         });
+
+        $this->createLastSeenMessage($senderId, $receiverId);
 
         return response()->json([
             "message" => "Success",
@@ -54,7 +58,9 @@ class MessageController extends Controller
                 ->get();
 
         $chats->each(function($chat) use($senderId) {
-            $user = User::select("username", "name", "profile_picture")->find($chat->user);
+            $user = User::select("id","username", "name", "profile_picture")->find($chat->user);
+
+            $chat->isRead = $this->checkIsMessageReaded($senderId, $user->id);
             $chat->user = $user;
         });
 
@@ -62,6 +68,19 @@ class MessageController extends Controller
             "message" => "success",
             "result" => $chats
         ]);
+    }
+
+    public static function checkIsMessageReaded ($userId, $targetId)
+    {
+        $isRead = false;
+        $lastSeen = LastSeenMessage::where([["user_id", $userId], ["target_id", $targetId]])->first();
+        if($lastSeen) {
+            $isExist = Message::where("sender_id", $targetId)
+                          ->where("receiver_id", $userId)
+                          ->where("created_at",">",$lastSeen->last_seen)->first();
+            $isRead = $isExist ? false : true;
+        }
+        return $isRead;
     }
 
     public function create (User $user, Request $request)
@@ -88,4 +107,33 @@ class MessageController extends Controller
             ]
         ]);
     }
+
+    public function markLastSeen (User $user)
+    {
+        $authId = auth()->user()->id;
+        $this->createLastSeenMessage($authId, $user->id);
+        return response()->json([
+            "message" => "success"
+        ]);
+    }
+
+    public function createLastSeenMessage ($userId, $targetId)
+    {
+        $lastSeen = LastSeenMessage::where([["user_id",$userId],["target_id",$targetId]])->first();
+
+        if($lastSeen) {
+            $lastSeen->update([
+                "last_seen" => now()
+            ]);
+        } else {
+            LastSeenMessage::create([
+                "id" => Str::uuid(),
+                "user_id" => $userId,
+                "target_id" => $targetId,
+                "last_seen" => now()
+            ]);
+        }
+    }
 }
+
+
