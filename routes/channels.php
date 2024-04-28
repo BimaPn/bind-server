@@ -18,6 +18,11 @@ Broadcast::channel('chat.{id}', function (User $user, $id) {
     return $user->id ===  $id;
 });
 
+
+Broadcast::channel('notification.{id}', function (User $user, $id) {
+    return $user->id ===  $id;
+});
+
 Broadcast::channel("testing", function() {
     return true;
 });

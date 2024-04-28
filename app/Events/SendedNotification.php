@@ -18,10 +18,12 @@ class SendedNotification implements ShouldBroadcast
      * Create a new event instance.
      */
     public $notification;
+    public $userId;
 
-    public function __construct($notification)
+    public function __construct($notification, $userId)
     {
         $this->notification = $notification;
+        $this->userId = $userId;
     }
 
     /**
@@ -32,7 +34,7 @@ class SendedNotification implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('chat.'.$this->userId),
+            new PrivateChannel('notification.'.$this->userId),
         ];
     }
 

@@ -31,6 +31,7 @@ class NotificationController extends Controller
                 $message = $entity->caption;
             }
             $notifications [] = [
+                "id" => $notification->id,
                 "sender" => [
                     "name" => $notification->sender->name,
                     "profile_picture" => $notification->sender->profile_picture,
@@ -41,7 +42,8 @@ class NotificationController extends Controller
                     "name" => $notification->entity->table_name,
                     "identifier" => $entity->id,
                     "message" => $message
-                ]
+                ],
+                "created_at" => $notification->created_at
             ];
         }
 
@@ -58,14 +60,18 @@ class NotificationController extends Controller
             "entity_id" => $entityId,
             "notification_type_id" => $notificationTypeId
         ]);
-        Notification::create([
+        $notification = Notification::create([
             "id" => Str::uuid(),
             "sender_id" => auth()->id(),
             "notifier_id" => $notifierId,
             "notification_object_id" => $notificationObject->id
         ]);
         $notificationObject->load("type");
-        return $notificationObject->type->message;
+        return [
+            "id" => $notification->id,
+            "message" => $notificationObject->type->message,
+            "created_at" => $notification->message
+        ];
     }
 
     public function notificationUnreadCount ()

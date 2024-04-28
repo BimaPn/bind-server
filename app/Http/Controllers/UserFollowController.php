@@ -56,20 +56,20 @@ class UserFollowController extends Controller
 
     public function createNotification ($authUser, $notifierId)
     {
-        $message = NotificationController::create("users", 1, $authUser->id, $notifierId);
+        $notification = NotificationController::create("users", 1, $authUser->id, $notifierId);
         $newNotification = [
             "sender" => [
                 "name" => $authUser->name,
                 "profile_picture" => $authUser->profile_picture
             ],
-            "message" => $message,
             "entity" => [
                 "name" => "users",
                 "identifier" => $authUser->id,
                 "message" => null
-            ]
+            ],
+            ...$notification
         ];
 
-        SendedNotification::dispatch($newNotification);
+        SendedNotification::dispatch($newNotification, $notifierId);
     }
 }
