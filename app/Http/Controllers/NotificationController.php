@@ -64,6 +64,8 @@ class NotificationController extends Controller
             "notifier_id" => $notifierId,
             "notification_object_id" => $notificationObject->id
         ]);
+        $notificationObject->load("type");
+        return $notificationObject->type->message;
     }
 
     public function notificationUnreadCount ()

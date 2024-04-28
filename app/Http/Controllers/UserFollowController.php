@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SendedNotification;
 use App\Models\User;
 
 class UserFollowController extends Controller
@@ -24,7 +25,7 @@ class UserFollowController extends Controller
 
         $authUser->follow($user);
 
-        NotificationController::create("users", 1, auth()->id(), $user->id);
+        $this->createNotification($authUser, $user->id);
 
         return response()->json([
             'message' => 'You followed ' . $user->username
@@ -51,5 +52,24 @@ class UserFollowController extends Controller
         return response()->json([
             'message' => 'You unfollowed ' . $user->username
         ]);
+    }
+
+    public function createNotification ($authUser, $notifierId)
+    {
+        $message = NotificationController::create("users", 1, $authUser->id, $notifierId);
+        $newNotification = [
+            "sender" => [
+                "name" => $authUser->name,
+                "profile_picture" => $authUser->profile_picture
+            ],
+            "message" => $message,
+            "entity" => [
+                "name" => "users",
+                "identifier" => $authUser->id,
+                "message" => null
+            ]
+        ];
+
+        SendedNotification::dispatch($newNotification);
     }
 }
