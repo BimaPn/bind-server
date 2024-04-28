@@ -29,8 +29,6 @@ class MessageController extends Controller
             unset($message->sender_id);
         });
 
-        $this->createLastSeenMessage($senderId, $receiverId);
-
         return response()->json([
             "message" => "Success",
             "messages" => $messages,
@@ -89,6 +87,8 @@ class MessageController extends Controller
             "message" => "required"
         ]);
 
+        $currentTime = now();
+
         $message = Message::create([
             "id" => Str::uuid(),
             "sender_id" => auth()->user()->id,
@@ -96,7 +96,7 @@ class MessageController extends Controller
             "message" => $validatedData["message"]
         ]);
 
-        SendedMessage::dispatch($message, $user->id);
+        SendedMessage::dispatch($message, $user->id, $currentTime);
 
         return response()->json([
             "message" => [
@@ -133,6 +133,25 @@ class MessageController extends Controller
                 "last_seen" => now()
             ]);
         }
+    }
+
+    public function messagesUnreadCount ()
+    {
+        $authId = auth()->user()->id;
+        $messages = Message::selectRaw("CASE WHEN sender_id = '$authId' THEN receiver_id ELSE sender_id END as target_id")
+                ->where('sender_id', $authId)
+                ->orWhere('receiver_id', $authId)
+                ->groupBy('target_id')
+                ->get();
+
+        $count = 0;
+        foreach ($messages as $message) {
+            $isRead = $this->checkIsMessageReaded($authId, $message->target_id);
+            $count += $isRead ? 0 : 1;
+        }
+        return response()->json([
+            "count" => $count
+        ]);
     }
 }
 

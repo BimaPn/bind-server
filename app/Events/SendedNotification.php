@@ -10,17 +10,16 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class FriendRequest implements ShouldBroadcast
+class SendedNotification
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public $message = "Motherfucker";
-    public function __construct($message)
+    public function __construct()
     {
-        $this->message = $message . rand(1,100);
+        //
     }
 
     /**
@@ -31,11 +30,7 @@ class FriendRequest implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('testing'),
+            new PrivateChannel('channel-name'),
         ];
-    }
-
-    public function broadcastWith(){
-        return ['message' => $this->message];
     }
 }

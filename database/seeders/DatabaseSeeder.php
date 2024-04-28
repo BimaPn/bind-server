@@ -1,15 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\User;
-use App\Models\Group;
-use App\Models\UserGroupPivot;
-use App\Models\Post;
-use App\Models\PostLike;
-use App\Models\PostMedia;
-use App\Models\PostComment;
-use App\Models\PostSave;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -31,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PostCommentSeeder::class);
         $this->call(PostSaveSeeder::class);
         $this->call(MessageSeeder::class);
-
+        $this->call(NotificationSeender::class);
+        $this->call(NotificationTypeSeeder::class);
     }
 }

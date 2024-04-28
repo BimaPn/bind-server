@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Http\Controllers\MessageController;
+use App\Models\LastSeenMessage;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -22,11 +22,24 @@ class SendedMessage implements ShouldBroadcast
 
     public $message;
     public $userId;
+    public $isPreviousUnreadExist = false;
 
-    public function __construct(Message $message, $userId)
+    public function __construct(Message $message, $userId, $currentTime)
     {
         $this->message = $message;
-        $this->message->isRead = MessageController::checkIsMessageReaded($userId, auth()->user()->id);
+
+        $lastSeen = LastSeenMessage::where([["user_id", $userId], ["target_id", auth()->id()]])->first();
+        if($lastSeen) {
+            $unreadMessage = Message::where("sender_id",auth()->id())
+                                ->where("receiver_id",$userId)
+                                ->where("created_at","<",$currentTime)
+                                ->where("created_at",">",$lastSeen->last_seen)
+                                ->first();
+            if($unreadMessage) {
+                $this->isPreviousUnreadExist = true;
+            }
+        }
+        $this->message->isRead = false;
         $this->userId = $userId;
     }
 
@@ -49,7 +62,8 @@ class SendedMessage implements ShouldBroadcast
                 "username" => auth()->user()->username,
                 "name" => auth()->user()->name,
                 "profile_picture" => auth()->user()->profile_picture
-            ]
+            ],
+            "isPreviousUnreadExist" => $this->isPreviousUnreadExist
         ];
     }
 }

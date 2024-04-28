@@ -8,6 +8,7 @@ Route::group([
 ], function ($router) {
     Route::get('/{user}/all', [MessageController::class, 'index']);
     Route::get('/chat-list', [MessageController::class, 'getChatList']);
+    Route::get('/unread-count', [MessageController::class, 'messagesUnreadCount']);
     Route::post('/{user}/create', [MessageController::class, 'create']);
     Route::post('/{user}/mark-last-seen', [MessageController::class, 'markLastSeen']);
 });

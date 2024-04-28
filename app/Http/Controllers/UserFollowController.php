@@ -24,6 +24,8 @@ class UserFollowController extends Controller
 
         $authUser->follow($user);
 
+        NotificationController::create("users", 1, auth()->id(), $user->id);
+
         return response()->json([
             'message' => 'You followed ' . $user->username
         ]);
